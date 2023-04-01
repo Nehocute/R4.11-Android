@@ -58,12 +58,12 @@ class Login : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.loginButton.setOnClickListener {
-            //TODO Change to have two errors instead of one
-            if (checkMail() && checkPassword()) run {
+            val validMail = checkMail();
+            val validPassword = checkPassword();
+            if (validMail && validPassword) run {
                 //TODO Check BDD
                 val intent = Intent(this.context, HomeActivity::class.java)
                 startActivity(intent)
-
             }
         }
         binding.mail.doOnTextChanged { _, _, _, _ -> binding.mail.error = null }
