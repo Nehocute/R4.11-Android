@@ -1,11 +1,14 @@
 package com.example.r411.ui.home
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.r411.FormationListActivity
+import com.example.r411.HomeActivity
 import com.example.r411.R
 import com.example.r411.databinding.FragmentHomeBinding
 import com.example.r411.databinding.FragmentLoginBinding
@@ -39,14 +42,19 @@ class Home : Fragment() {
         inflater.inflate(R.menu.menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                // navigate to settings screen
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.go_to_home -> {
+            true
+        }
+
+        R.id.go_to_formation_list -> {
+            val intent = Intent(this.context, FormationListActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
-
 }

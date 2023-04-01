@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">>
-
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:title="Menu"/>
+        android:id="@+id/go_to_home"
+        android:title="@string/title_activity_home"/>
+    <item
+        android:id="@+id/go_to_formation_list"
+        android:title="@string/title_activity_formation_list" />
 </menu>
