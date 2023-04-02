@@ -48,8 +48,8 @@ class Home : Fragment() {
         list.setOnItemClickListener { parent, view, position, id ->
             val selectedSession = parent.getItemAtPosition(position) as String
             // intent or something else ?
-            val intent = Intent(this.context, FormationListActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this.context, FormationListActivity::class.java)
+            //startActivity(intent)
         }
         return v
     }
@@ -73,6 +73,7 @@ class Home : Fragment() {
 
         R.id.go_to_profile -> {
             val intent = Intent(this.context, ProfileActivity::class.java)
+            intent.putExtra("user_id", 1)
             startActivity(intent)
             true
         }

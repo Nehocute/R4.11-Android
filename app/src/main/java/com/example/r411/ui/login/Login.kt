@@ -63,6 +63,8 @@ class Login : Fragment() {
             if (validMail && validPassword) run {
                 //TODO Check BDD
                 val intent = Intent(this.context, HomeActivity::class.java)
+                //TODO: Pass user name to HomeActivity
+                intent.putExtra("name", "test")
                 startActivity(intent)
             }
         }
