@@ -1,9 +1,7 @@
 package com.example.r411.persistance.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.Database
-import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.r411.persistance.dao.*
@@ -19,7 +17,7 @@ import com.example.r411.persistance.view.FormationDetails
     Student::class,
     Evaluation::class],
     views = [FormationDetails::class],
-    version = 3)
+    version = 4)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
     abstract fun studentDao(): StudentDao

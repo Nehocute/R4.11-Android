@@ -5,4 +5,5 @@
     <string name="title_activity_login">Connexion</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_students">Students</string>
+    <string name="title_activity_formation_infos">Détails de formation</string>
 </resources>
