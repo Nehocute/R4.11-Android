@@ -1,19 +1,20 @@
 package com.example.r411.persistance.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.example.r411.persistance.entity.Evaluation
 import com.example.r411.persistance.entity.FormationAptitude
 
 @Dao
-interface FormationAptitudeDao {
+interface FormationAptitudeDao : DataDao<FormationAptitude> {
     @Query("SELECT * FROM formation_aptitude WHERE deleted = 0")
-    fun getAll(): List<FormationAptitude>
+    override fun getAll(): List<FormationAptitude>
 
     @Query("SELECT * FROM formation_aptitude WHERE id IN (:formationAptitudeIds) and deleted = 0")
-    fun loadAllByIds(formationAptitudeIds: IntArray): List<FormationAptitude>
+    override fun loadAllByIds(formationAptitudeIds: IntArray): List<FormationAptitude>
 
     @Insert
-    fun insertAll(vararg formationAptitudes: FormationAptitude)
+    override fun insertAll(vararg formationAptitudes: FormationAptitude)
+
+    @Upsert
+    override fun insertOrUpdate(formationAptitude: FormationAptitude)
 }

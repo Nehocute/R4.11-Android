@@ -1,24 +1,22 @@
 package com.example.r411.persistance.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.r411.persistance.entity.Student
 
 @Dao
-interface StudentDao {
+interface StudentDao : DataDao<Student> {
     @Query("SELECT * FROM student WHERE deleted = 0")
-    fun getAll(): List<Student>
+    override fun getAll(): List<Student>
 
     @Query("SELECT * FROM student WHERE id IN (:studentIds) and deleted = 0")
-    fun loadAllByIds(studentIds: IntArray): List<Student>
+    override fun loadAllByIds(studentIds: IntArray): List<Student>
 
     @Query("SELECT * FROM student WHERE formation_id LIKE :formationId and deleted = 0")
     fun findByFormationId(formationId: Int): List<Student>
 
-    @Query("SELECT * FROM student WHERE email LIKE :email LIMIT 1")
-    fun findByEmail(email: String): Student
-
     @Insert
-    fun insertAll(vararg students: Student)
+    override fun insertAll(vararg students: Student)
+
+    @Upsert
+    override fun insertOrUpdate(student: Student)
 }

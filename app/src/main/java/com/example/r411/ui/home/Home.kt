@@ -29,8 +29,8 @@ class Home : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        viewModel.syncDatabase(this.requireContext())
     }
 
     override fun onCreateView(

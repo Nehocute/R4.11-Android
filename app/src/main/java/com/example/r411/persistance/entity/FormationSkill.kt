@@ -1,10 +1,16 @@
 package com.example.r411.persistance.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity
+@Entity(tableName = "formation_skill",
+    foreignKeys = [ForeignKey(
+        entity = FormationLevel::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("level_id"),
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["level_id"], unique = false)]
+)
 data class FormationSkill(
     @PrimaryKey val id: Int,
     val name: String,

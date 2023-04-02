@@ -7,15 +7,15 @@ import androidx.room.RoomDatabase
 import com.example.r411.persistance.dao.*
 import com.example.r411.persistance.entity.*
 
-@Database(entities = arrayOf(
+@Database(entities = [
+    Formation::class,
+    FormationAptitude::class,
+    FormationSkill::class,
+    FormationLevel::class,
     Session::class,
     Student::class,
-    Formation::class,
-    FormationLevel::class,
-    FormationSkill::class,
-    FormationAptitude::class,
     Evaluation::class
-), version = 1)
+                     ], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
     abstract fun studentDao(): StudentDao

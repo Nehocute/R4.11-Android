@@ -1,10 +1,16 @@
 package com.example.r411.persistance.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity
+@Entity(tableName = "session",
+    foreignKeys = [ForeignKey(
+        entity = Formation::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("formation_id"),
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["formation_id"], unique = false)]
+)
 data class Session(
     @PrimaryKey val id: Int,
     val date: String,
