@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import com.example.r411.FormationListActivity
-import com.example.r411.HomeActivity
-import com.example.r411.R
+import com.example.r411.*
 import com.example.r411.databinding.FragmentHomeBinding
 import com.example.r411.databinding.FragmentLoginBinding
 
@@ -62,11 +60,25 @@ class Home : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.go_to_home -> {
+            val intent = Intent(this.context, HomeActivity::class.java)
+            startActivity(intent)
             true
         }
 
         R.id.go_to_formation_list -> {
             val intent = Intent(this.context, FormationListActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        R.id.go_to_profile -> {
+            val intent = Intent(this.context, ProfileActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        R.id.go_to_students -> {
+            val intent = Intent(this.context, StudentsActivity::class.java)
             startActivity(intent)
             true
         }

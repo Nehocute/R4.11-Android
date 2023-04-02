@@ -3,4 +3,6 @@
     <string name="title_activity_formation_list">Formations</string>
     <string name="title_activity_home">Accueil</string>
     <string name="title_activity_login">Connexion</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_students">Students</string>
 </resources>
