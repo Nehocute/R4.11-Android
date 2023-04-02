@@ -1,11 +1,14 @@
 package com.example.r411.persistance.database
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Database
+import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.r411.persistance.dao.*
 import com.example.r411.persistance.entity.*
+import com.example.r411.persistance.view.FormationDetails
 
 @Database(entities = [
     Formation::class,
@@ -14,8 +17,9 @@ import com.example.r411.persistance.entity.*
     FormationLevel::class,
     Session::class,
     Student::class,
-    Evaluation::class
-                     ], version = 1)
+    Evaluation::class],
+    views = [FormationDetails::class],
+    version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
     abstract fun studentDao(): StudentDao
@@ -24,6 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun formationSkillDao(): FormationSkillDao
     abstract fun formationAptitudeDao(): FormationAptitudeDao
     abstract fun evaluationDao(): EvaluationDao
+
 
     companion object {
         private const val DATABASE_NAME = "r411.db"
@@ -35,7 +40,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).fallbackToDestructiveMigration().build()
             }
             return INSTANCE!!
         }
