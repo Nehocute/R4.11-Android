@@ -4,9 +4,13 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import com.example.r411.FormationListActivity
 import com.example.r411.HomeActivity
 import com.example.r411.R
@@ -23,6 +27,7 @@ class Home : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -35,6 +40,19 @@ class Home : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val v = inflater.inflate(R.layout.fragment_home, container, false)
+        val list = v.findViewById<ListView>(R.id.lv_session)
+        //TOOD: Get data from database
+        val data = listOf("Session 1", "Session 2", "Session 3")
+
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, data)
+        list.adapter = adapter
+
+        list.setOnItemClickListener { parent, view, position, id ->
+            val selectedSession = parent.getItemAtPosition(position) as String
+            // intent or something else ?
+            val intent = Intent(this.context, FormationListActivity::class.java)
+            startActivity(intent)
+        }
         return v
     }
 
