@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -50,6 +51,7 @@ class Home : Fragment() {
     ): View {
         val v = inflater.inflate(R.layout.fragment_home, container, false)
         println("a")
+        val button = v.findViewById<Button>(R.id.button)
         val list = v.findViewById<ListView>(R.id.lv_session)
         val database = AppDatabase.getInstance(this.requireContext())
         val items = mutableListOf<String>()
@@ -75,6 +77,12 @@ class Home : Fragment() {
             //val intent = Intent(this.context, FormationListActivity::class.java)
             //startActivity(intent)
         }
+
+        button.setOnClickListener{
+            val intent = Intent(this.context,HomeActivity::class.java)
+            startActivity(intent)
+        }
+
         return v
     }
 
