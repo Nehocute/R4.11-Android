@@ -19,7 +19,7 @@ import com.example.r411.persistance.view.FormationDetails
     Student::class,
     Evaluation::class],
     views = [FormationDetails::class],
-    version = 2)
+    version = 3)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
     abstract fun studentDao(): StudentDao
