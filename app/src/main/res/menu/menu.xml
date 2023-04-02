@@ -7,7 +7,4 @@
     <item
         android:id="@+id/go_to_formation_list"
         android:title="@string/title_activity_formation_list" />
-    <item
-        android:id="@+id/go_to_students"
-        android:title="@string/title_activity_students" />
 </menu>
