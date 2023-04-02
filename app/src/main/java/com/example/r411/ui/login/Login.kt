@@ -1,5 +1,6 @@
 package com.example.r411.ui.login
 
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -73,9 +74,13 @@ class Login : Fragment() {
                 val data = JSONArray(stringBuilder.toString())
                 for (i in 0 until data.length()) {
                     val item = data.getJSONObject(i)
-                    println(item)
                     if(item.getString("email") == binding.mail.text.toString() && item.getString("password") == binding.password.text.toString()) {
-                        println(item.getInt("id"))
+                        val sharedPref = requireActivity().getSharedPreferences("LOGGED_USER", Context.MODE_PRIVATE)
+                        val editor = sharedPref.edit()
+                        editor.putInt("id", item.getInt("id"))
+                        editor.putString("name", item.getString("name"))
+                        editor.putInt("levelId", item.getInt("levelId"))
+                        editor.apply()
                         return@withContext item.getInt("id")
                     }
                 }
@@ -101,7 +106,6 @@ class Login : Fragment() {
                         return@run
                     }
                     val intent = Intent(context, HomeActivity::class.java)
-                    intent.putExtra("name", "test")
                     startActivity(intent)
                 }
             }
