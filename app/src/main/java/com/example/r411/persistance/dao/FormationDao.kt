@@ -1,10 +1,12 @@
 package com.example.r411.persistance.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Upsert
 import com.example.r411.persistance.entity.Formation
+import com.example.r411.persistance.view.FormationDetails
 
 @Dao
 interface FormationDao : DataDao<Formation> {
@@ -25,4 +27,9 @@ interface FormationDao : DataDao<Formation> {
 
     @Upsert
     override fun insertOrUpdate(formation: Formation)
+
+    @Query("SELECT formation.id, formation.name, formation_level.name AS levelName FROM formation " +
+            "JOIN formation_level ON formation.level_id = formation_level.id " +
+            "WHERE formation.deleted = 0 ORDER BY formation.id")
+    fun formationDetailsView(): LiveData<List<FormationDetails>>
 }
