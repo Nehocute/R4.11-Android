@@ -9,5 +9,7 @@ data class Evaluation(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "aptitude_id") val aptitudeId: Int,
     @ColumnInfo(name = "student_id") val studentId: Int,
+    @ColumnInfo(name = "session_id") val sessionId: Int,
+    val status: Int,
     val comment: String,
 )
