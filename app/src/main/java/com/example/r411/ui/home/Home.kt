@@ -83,12 +83,6 @@ class Home : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.go_to_home -> {
-            val intent = Intent(this.context, HomeActivity::class.java)
-            startActivity(intent)
-            true
-        }
-
         R.id.go_to_formation_list -> {
             val intent = Intent(this.context, FormationListActivity::class.java)
             startActivity(intent)
