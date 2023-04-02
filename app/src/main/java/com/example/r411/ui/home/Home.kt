@@ -104,12 +104,6 @@ class Home : Fragment() {
             true
         }
 
-        R.id.go_to_students -> {
-            val intent = Intent(this.context, StudentsActivity::class.java)
-            startActivity(intent)
-            true
-        }
-
         else -> {
             super.onOptionsItemSelected(item)
         }
