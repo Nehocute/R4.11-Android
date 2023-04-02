@@ -61,6 +61,14 @@ class DataDownloadWorker(context: Context, workerParams: WorkerParameters) : Wor
                     it.getBoolean("deleted")
                 )
             }
+            downloadData("session", database.sessionDao()) {
+                Session(
+                    it.getInt("id"),
+                    it.getString("date"),
+                    it.getInt("formationId"),
+                    it.getBoolean("deleted")
+                )
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             return Result.failure()
