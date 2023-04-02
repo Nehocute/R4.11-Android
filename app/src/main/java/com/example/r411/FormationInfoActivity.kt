@@ -1,11 +1,11 @@
 package com.example.r411
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,20 +14,27 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.r411.persistance.database.AppDatabase
-import com.example.r411.persistance.view.FormationDetails
+import com.example.r411.persistance.view.StudentDetails
 import com.example.r411.ui.theme.R411Theme
 
-class FormationListActivity : ComponentActivity() {
+class FormationInfoActivity : ComponentActivity() {
     private val database = AppDatabase.getInstance(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val formationId = intent.extras?.get("formationId") as Int?
+        val formationName = intent.extras?.get("formationName") as String?
+        val formationLevel = intent.extras?.get("formationLevel") as String?
+        val formationAptitudes = intent.extras?.get("formationAptitudes") as Int?
+        if (formationId == null || formationName == null || formationLevel == null
+            || formationAptitudes == null) {
+            finish()
+        }
         setContent {
-            val formationDetails = database.formationDao().formationDetailsView().observeAsState()
+            val studentDetails = database.studentDao().studentDetailsView(formationId!!).observeAsState()
             R411Theme {
                 Scaffold(
                     topBar = {
@@ -50,7 +57,7 @@ class FormationListActivity : ComponentActivity() {
                                 .padding(it)
                                 .fillMaxSize()
                         ) {
-                            FormationList(formationDetails)
+                            FormationTable(studentDetails, formationAptitudes!!)
                         }
                     })
             }
@@ -59,8 +66,7 @@ class FormationListActivity : ComponentActivity() {
 }
 
 @Composable
-fun FormationList(formationDetails: State<List<FormationDetails>?>) {
-    val context = LocalContext.current
+fun FormationTable(formationDetails: State<List<StudentDetails>?>, formationAptitudes: Int) {
     Column(
         Modifier
             .padding(5.dp)
@@ -71,22 +77,16 @@ fun FormationList(formationDetails: State<List<FormationDetails>?>) {
                 if (formationDetails.value != null)
                     for (detail in formationDetails.value!!) {
                         Row (
-                            Modifier.padding(3.dp).clickable {
-                                context.startActivity(Intent(context, FormationInfoActivity::class.java)
-                                    .putExtra("formationId", detail.id)
-                                    .putExtra("formationName", detail.name)
-                                    .putExtra("formationLevel", detail.levelName)
-                                    .putExtra("formationAptitudes", detail.aptitudeCount))
-                            }
-                        ) {
-                            Text(text = detail.name,
+                            Modifier
+                                .padding(3.dp)){
+                            Text(text = "${detail.name} (${detail.phone})",
                                 modifier = Modifier
                                     .align(Alignment.CenterVertically),
-                                fontSize = 24.sp)
+                                fontSize = 18.sp)
                             Spacer(Modifier.weight(1f))
-                            Text(text = detail.levelName,
+                            Text(text = "${detail.aptitudes}/$formationAptitudes",
                                 modifier = Modifier.align(Alignment.CenterVertically),
-                                fontSize = 20.sp)
+                                fontSize = 18.sp)
                         }
                         Divider(modifier = Modifier.height(2.dp))
                     }
@@ -96,10 +96,9 @@ fun FormationList(formationDetails: State<List<FormationDetails>?>) {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun DefaultPreview4() {
     //val formationDao = AppDatabase.getInstance().formationDao()
     R411Theme {
         Scaffold(
@@ -126,3 +125,6 @@ fun DefaultPreview() {
             })
     }
 }
+
+
+
