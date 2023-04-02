@@ -19,41 +19,51 @@ class DataDownloadWorker(context: Context, workerParams: WorkerParameters) : Wor
     }
 
     override fun doWork(): Result {
-        val database = AppDatabase.getInstance(applicationContext)
-        downloadData("level", database.formationLevelDao()) {
-            FormationLevel(
-                it.getInt("id"),
-                it.getString("name"),
-                it.getBoolean("deleted"))
-        }
-        downloadData("skill", database.formationSkillDao()) {
-            FormationSkill(
-                it.getInt("id"),
-                it.getString("name"),
-                it.getInt("levelId"),
-                it.getBoolean("deleted"))
-        }
-        downloadData("aptitude", database.formationAptitudeDao()) {
-            FormationAptitude(
-                it.getInt("id"),
-                it.getString("name"),
-                it.getInt("skillId"),
-                it.getBoolean("deleted"))
-        }
-        downloadData("formation", database.formationDao()) {
-            Formation(
-                it.getInt("id"),
-                it.getString("name"),
-                it.getInt("levelId"),
-                it.getBoolean("deleted"))
-        }
-        downloadData("student", database.studentDao()) {
-            Student(
-                it.getInt("id"),
-                it.getString("name"),
-                it.getInt("formationId"),
-                it.getString("phone"),
-                it.getBoolean("deleted"))
+        try {
+            val database = AppDatabase.getInstance(applicationContext)
+            downloadData("level", database.formationLevelDao()) {
+                FormationLevel(
+                    it.getInt("id"),
+                    it.getString("name"),
+                    it.getBoolean("deleted")
+                )
+            }
+            downloadData("skill", database.formationSkillDao()) {
+                FormationSkill(
+                    it.getInt("id"),
+                    it.getString("name"),
+                    it.getInt("levelId"),
+                    it.getBoolean("deleted")
+                )
+            }
+            downloadData("aptitude", database.formationAptitudeDao()) {
+                FormationAptitude(
+                    it.getInt("id"),
+                    it.getString("name"),
+                    it.getInt("skillId"),
+                    it.getBoolean("deleted")
+                )
+            }
+            downloadData("formation", database.formationDao()) {
+                Formation(
+                    it.getInt("id"),
+                    it.getString("name"),
+                    it.getInt("levelId"),
+                    it.getBoolean("deleted")
+                )
+            }
+            downloadData("student", database.studentDao()) {
+                Student(
+                    it.getInt("id"),
+                    it.getString("name"),
+                    it.getInt("formationId"),
+                    it.getString("phone"),
+                    it.getBoolean("deleted")
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return Result.failure()
         }
         return Result.success()
     }
